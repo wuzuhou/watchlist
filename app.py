@@ -14,7 +14,7 @@ else:
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db') #数据库路径
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #关闭对模型修改的监控
 app.config['SECRET_KEY'] = 'dev' #这个密钥主要用在cookie 和 session
 
 db = SQLAlchemy(app)
@@ -138,10 +138,11 @@ def logout():
 # 对未登录用户重定向到登录页面
 login_manager.login_view = 'login'
 
+#设置用户名字
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
-    if request.methods == 'POST':
+    if request.method == 'POST':
         name = request.form['name']
         if not name or len(name) > 20:
             flash('Invalid input.')
