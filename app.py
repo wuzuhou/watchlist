@@ -154,7 +154,7 @@ def settings():
         #user = User.query.first()
         #user.name = name
         db.session.commit()
-        flash('Settings update.')
+        flash('Settings updated.')
         return redirect(url_for('index'))
 
     return render_template('settings.html')
@@ -211,7 +211,7 @@ def edit(movie_id):
         movie.title= title #更新标题
         movie.year = year # 更新年份
         db.session.commit()
-        flash('Item update.')
+        flash('Item updated.')
         return redirect(url_for('index')) #重定向回主页
 
     return render_template('edit.html', movie=movie) # 传入被编辑的电影记录
@@ -223,7 +223,7 @@ def delete(movie_id):
     movie = Movie.query.get_or_404(movie_id) #获取电影记录
     db.session.delete(movie) # 删除对于的记录
     db.session.commit() # 提交数据库会话
-    flash('Item delete.')
+    flash('Item deleted.')
     return redirect(url_for('index')) # 重定向回主页
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@
 <h3>Settings</h3>
 <form method="POST">
     <!-- required value="{{ current_user.name }}" 这句话的效果就是当我点击settings后，页面的填写处会出现旧的的name（即Admin） -->
-    Your Name <input type="text" name="name" autocomplete="off" value="{{ current_user.name }} "  required >
+    Your Name <input type="text" name="name" autocomplete="off" value="{{ current_user.name }} "  required>
          <input class="btn" type="submit" name="submit" value="Save">
     <!-- <button class="btn" type="submit" name="submit" > Save </button> -->
 </form>
