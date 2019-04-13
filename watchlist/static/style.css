@@ -1,0 +1,142 @@
+/* 页面整体 */
+body {
+    margin: auto;  /* margin外边距， auto浏览器计算外边距*/
+    max-width: 580px; /* 段落的最大宽度 */
+    font-size: 14px;
+    font-family: Helvetica, Arial, sans-serif; /*规定字体，可以把多个字体名称作为一个“回退”系统来保存。如果浏览器不支持第一个字体，则会尝试下一个 */
+}
+
+/* 页脚 */
+footer {
+    color: #888;
+    margin-top: 15px;  /* 上外边距 */
+    text-align: center; /* 文本的水平对齐方式 */
+    padding: 10px; /* 内边距 */
+}
+
+/* 头像 */
+.avatar {
+    width: 40px;
+}
+
+/* 提示信息 */
+.alert {
+    position: relative; /* 位置的相对定位 */
+    padding: 7px;
+    margin: 7px 0;
+    border: 1px solid transparent;
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+    border-radius: 5px;
+}
+
+/* home\apple\pear\banana标签 */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 8px 12px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+/* 提交按钮 */
+input[type=submit] {
+    font-family: inherit;
+}
+
+input[type=text] {
+    border: 1px solid #ddd;
+}
+
+input[type=text] {
+    border: 1px solid #ddd;
+}
+
+input[name=year] {
+    width: 50px;
+}
+
+
+.float-right {
+    float: right;
+    display: inline;
+}
+
+/* edit */
+.btn {
+    font-size: 12px; /* 字体尺寸 */
+    padding: 3px 5px;  /* 内边距 */
+    text-decoration: none;  /* 文本修饰，如加下划线*/
+    cursor: pointer;        /* 特别的光标 */
+    background-color: white;  /* 底色*/
+    color: black;  /*字体颜色*/
+    border: 1px solid #555555;  /* 边框尺寸、实线、颜色 */
+    border-radius: 5px;  /*  圆角边框*/
+}
+/* :hover  选择鼠标指针浮动在其上的元素，并设置其样式 */
+.btn:hover {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+.imdb {
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    background: #F5C518;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+
+/* 删除按钮与旁边的编辑链接成一排 */
+.inline-form {
+    display: inline;
+}
+
+/* 电影列表 */
+.movie-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); /* 向框添加一个或多个阴影*/
+}
+
+.movie-list li {
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+}
+
+.movie-list li:last-child {
+    border-bottom:none;
+}
+
+.movie-list li:hover {
+    background-color: #f8f9fa;
+}
+
+/* 龙猫图片 */
+.totoro {
+    display: block;
+    margin: 0 auto;
+    height: 100px;
+}
