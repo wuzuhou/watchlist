@@ -136,7 +136,7 @@ input[name=year] {
 
 /* 龙猫图片 */
 .totoro {
-    display: block;
-    margin: 0 auto;
+    display: block; /* 块级元素 */
+    margin: 0 auto; /* 上下为零，左右为auto */
     height: 100px;
 }

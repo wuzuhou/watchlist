@@ -5,6 +5,7 @@ import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_migrate import Migrate
 
 WIN = sys.platform.startswith('win')
 if WIN:
@@ -18,6 +19,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(ap
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #关闭对模型修改的监控
 
 db = SQLAlchemy(app)
+migrate = Migrate(app,db)
 login_manager = LoginManager(app) #实例化扩展类
 
 @login_manager.user_loader
