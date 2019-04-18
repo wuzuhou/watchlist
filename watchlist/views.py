@@ -94,7 +94,7 @@ def login():
             return redirect(url_for('login'))
 
         user = User.query.filter_by(username=username).first()
-        if  username == user.username and user.validate_password(password):
+        if  user and username == user.username and user.validate_password(password):
             login_user(user) #登入用户
             flash('Login success.')
             return redirect(url_for('index'))
