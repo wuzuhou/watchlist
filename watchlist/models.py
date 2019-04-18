@@ -8,6 +8,7 @@ class User(db.Model, UserMixin):   #用户认证用到 UserMixin
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     username = db.Column(db.String(20)) # 用户名
+    email = db.Column(db.String(20))
     password_hash = db.Column(db.String(128)) #密码散列值
     # tall = db.Column(db.Integer)
     # nickname = db.Column(db.String(20))

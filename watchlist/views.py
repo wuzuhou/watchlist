@@ -4,6 +4,7 @@ from flask_login import login_user, login_required, current_user, logout_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
 # 主页及添加记录
 @app.route('/', methods=['GET', 'POST'])
@@ -87,12 +88,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
+
         if not username or not password:
             flash('Invalid input.')
             return redirect(url_for('login'))
 
-        user = User.query.first()
-        # 验证用户名和密码是否一致
+        user = User.query.filter_by(username=username).first()
         if  username == user.username and user.validate_password(password):
             login_user(user) #登入用户
             flash('Login success.')
@@ -110,3 +111,30 @@ def logout():
     logout_user()
     flash('Goodbye.')
     return redirect(url_for('index'))
+
+#用户注册
+class RegistrationForm(Form):
+    username = StringField('Username', [validators.Length(min=4, max=25)])
+    email = StringField('Email Address', [validators.Length(min=6, max=35)])
+    password = PasswordField('New Password', [
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    accept_tos = BooleanField('I accept the TOS', [validators.DataRequired()])
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm(request.form)# 自定义类 RegistrationForm，它继承了类Form的所有属性。实例化RegistrationForm（用参数request.form），并用form接住。
+    if User.query.filter_by(email=form.email.data).first():
+        flash('The email is already exist!')
+        return redirect(url_for('login'))
+    elif request.method == 'POST' and form.validate():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Thanks for registering')
+        return redirect(url_for('login'))
+    else:
+        return render_template('register.html', form=form)
