@@ -3,11 +3,12 @@
 {% block content %}
 <h3>Settings</h3>
 <form method="POST">
-    <!-- required value="{{ current_user.name }}" 这句话的效果就是当我点击settings后，页面的填写处会出现旧的的name（即Admin） -->
+    <!-- value="{{ current_user.name }}" 这句话的效果就是当我点击settings后，页面的填写处会出现旧的的name（即Admin） -->
     Your Name <input type="text" name="name" autocomplete="off" value="{{ current_user.name }} "  required>
          <input class="btn" type="submit" name="submit" value="Save">
     <!-- <button class="btn" type="submit" name="submit" > Save </button> -->
 </form>
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static',filename='images/totoro.gif') }}" title="to~to~ro">
 {% endblock %}
 
 <!-- button 默认type是submit ，可以不用写出来。但是如果我们有两个以上的按钮，比如 delete 和 cancel ，那就要特别注明 type的类型。 -->

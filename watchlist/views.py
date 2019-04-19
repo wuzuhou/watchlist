@@ -3,9 +3,9 @@ from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, current_user, logout_user
 
 from watchlist import app, db
-from watchlist.models import User, Movie
+from watchlist.models import User, Movie, Message
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
-
+import datetime
 # 主页及添加记录
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -138,3 +138,58 @@ def register():
         return redirect(url_for('login'))
     else:
         return render_template('register.html', form=form)
+#留言板
+@app.route('/message',methods=['GET', 'POST'])
+def message():
+    messages = Message.query.all()
+    total_number_of_messages = len(messages)
+    sn_of_message = len(messages)
+    if request.method == 'POST':
+        message_content = request.form['message_content']
+        nickname = request.form['nickname']
+        created_time = datetime.datetime.now()
+
+        if len(nickname)>20 or len(message_content)> 256:
+            flash('Invalid input.')
+            return redirect(url_for('message'))
+        sn_of_message += 1
+        message = Message(message_content=message_content, nickname=nickname, created_time=created_time, sn_of_message = sn_of_message)
+        db.session.add(message)
+        db.session.commit()
+        flash('message add success!')
+
+        messages = Message.query.all()
+        for message in messages:
+            message.create_time = shifttime(message.created_time)
+        total_number_of_messages = len(messages)
+        return render_template('messages.html', messages=messages, total_number_of_messages = total_number_of_messages)
+
+    for message in messages:
+        message.create_time = shifttime(message.created_time)
+    return render_template('messages.html', messages=messages, total_number_of_messages = total_number_of_messages, sn_of_message = sn_of_message)
+
+def shifttime(time):
+    now_time = datetime.datetime.now()
+    if now_time.year != time.year:
+        year_of_different = now_time.year - time.year
+        return f"{year_of_different} years ago"
+
+    elif now_time.month != time.month:
+        month_of_different = now_time.month - time.month
+        return f"{month_of_different} months ago"
+
+    elif now_time.day != time.day:
+        day_of_different = now_time.day - time.day
+        return f"{day_of_different} days ago"
+
+    elif now_time.hour != time.hour:
+        hour_of_different = now_time.hour - time.hour
+        return f"{hour_of_different} hours ago"
+
+    elif now_time.minute != time.minute:
+        minute_of_different = now_time.minute - time.minute
+        return f"{minute_of_different} minutes ago"
+
+    else:
+        second_of_different = now_time.second - time.second
+        return f"{second_of_different} seconds ago"

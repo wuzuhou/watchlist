@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Say Anything To My Watchlist</h3>
+<form method="post">
+    Name <input type="text" name="nickname" autocomplete="off" required>
+    Messages <input type="text" name="message_content" autocomplete="off" required>
+    <input class="btn" type="submit" name="submit" value="Submit">
+</form>
+<ul class="messages">
+<!-- 显示总信息数 -->
+   <h5>{{total_number_of_messages}} Messages</h5>
+      {% for message in messages %}
+      <li>{{ message.nickname }} # {{ message.sn_of_message }}
+        {{ message.message_content }}
+        {{ message.create_time }}
+       </li>
+       {% endfor %}
+</ul>
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static',filename='images/totoro.gif') }}" title="to~to~ro">
+{% endblock %}

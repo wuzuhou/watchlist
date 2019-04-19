@@ -23,9 +23,11 @@
             {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('settings') }}">Settings</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                <li><a href="{{ url_for('message') }}">Messages</a></li>
             {% else %}
                 <li><a href="{{ url_for('login') }}">Login</a></li>
                 <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('message') }}">Message</a></li>
             {% endif %}
         </ul>
     </nav>
