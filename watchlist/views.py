@@ -142,7 +142,6 @@ def register():
 @app.route('/message',methods=['GET', 'POST'])
 def message():
     messages = Message.query.all()
-    total_number_of_messages = len(messages)
     sn_of_message = len(messages)
     if request.method == 'POST':
         message_content = request.form['message_content']
@@ -161,12 +160,11 @@ def message():
         messages = Message.query.all()
         for message in messages:
             message.create_time = shifttime(message.created_time)
-        total_number_of_messages = len(messages)
-        return render_template('messages.html', messages=messages, total_number_of_messages = total_number_of_messages)
+        return render_template('messages.html', messages=messages)
 
     for message in messages:
         message.create_time = shifttime(message.created_time)
-    return render_template('messages.html', messages=messages, total_number_of_messages = total_number_of_messages, sn_of_message = sn_of_message)
+    return render_template('messages.html', messages=messages, sn_of_message = sn_of_message)
 
 def shifttime(time):
     now_time = datetime.datetime.now()

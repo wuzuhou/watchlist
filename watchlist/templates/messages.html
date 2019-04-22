@@ -9,7 +9,7 @@
 </form>
 <ul class="messages">
 <!-- 显示总信息数 -->
-   <h5>{{total_number_of_messages}} Messages</h5>
+   <h5>{{ messages|length }} Messages</h5>
       {% for message in messages %}
       <li>{{ message.nickname }} # {{ message.sn_of_message }}
         {{ message.message_content }}
