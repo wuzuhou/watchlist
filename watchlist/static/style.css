@@ -66,14 +66,23 @@ input[type=text] {
     border: 1px solid #ddd;
 }
 
-input[type=text] {
-    border: 1px solid #ddd;
-}
-
 input[name=year] {
     width: 50px;
 }
 
+input[name=nickname] {
+    margin: 4px 0 16px 0;
+    width: 100%;
+    height: 32px;
+    border-radius: 5px;
+}
+
+.box_mes {
+  margin: 4px 0 16px 0;
+  width: 100%;
+  height: 64px;
+  border-radius: 5px;
+}
 
 .float-right {
     float: right;
@@ -140,4 +149,23 @@ input[name=year] {
     display: block; /* 块级元素 */
     margin: 0 auto; /* 上下为零，左右为auto */
     height: 100px;
+}
+
+.mtn {
+    font-size: 18px; /* 字体尺寸 */
+    padding: 4px 8px;  /* 内边距 */
+    text-decoration: none;  /* 文本修饰，如加下划线*/
+    cursor: pointer;        /* 特别的光标 */
+    background-color: #C4C0BF;  /* 底色*/
+    color: black;  /*字体颜色*/
+    border: 1px solid #555555;  /* 边框尺寸、实线、颜色 */
+    border-radius: 5px;  /*  圆角边框*/
+}
+
+/* :hover  选择鼠标指针浮动在其上的元素，并设置其样式 */
+.mtn:hover {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
 }

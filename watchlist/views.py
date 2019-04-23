@@ -142,7 +142,6 @@ def register():
 @app.route('/message',methods=['GET', 'POST'])
 def message():
     messages = Message.query.all()
-    sn_of_message = len(messages)
     if request.method == 'POST':
         message_content = request.form['message_content']
         nickname = request.form['nickname']
@@ -151,8 +150,7 @@ def message():
         if len(nickname)>20 or len(message_content)> 256:
             flash('Invalid input.')
             return redirect(url_for('message'))
-        sn_of_message += 1
-        message = Message(message_content=message_content, nickname=nickname, created_time=created_time, sn_of_message = sn_of_message)
+        message = Message(message_content=message_content, nickname=nickname, created_time=created_time)
         db.session.add(message)
         db.session.commit()
         flash('message add success!')
@@ -164,7 +162,7 @@ def message():
 
     for message in messages:
         message.create_time = shifttime(message.created_time)
-    return render_template('messages.html', messages=messages, sn_of_message = sn_of_message)
+    return render_template('messages.html', messages=messages)
 
 def shifttime(time):
     now_time = datetime.datetime.now()

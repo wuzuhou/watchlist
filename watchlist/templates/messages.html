@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Say Anything To My Watchlist</h3>
+<h2>Say Anything To My Watchlist</h2>
 <form method="post">
-    Name <input type="text" name="nickname" autocomplete="off" required>
-    Messages <input type="text" name="message_content" autocomplete="off" required>
-    <input class="btn" type="submit" name="submit" value="Submit">
+    Name<br>
+    <input type="text" name="nickname" autocomplete="off" required><br>
+    Messages<br>
+    <input class="box_mes" type="textarea" name="message_content" autocomplete="off" required><br>
+    <input class="mtn" type="submit" name="submit" value="Submit">
 </form>
-<ul class="messages">
-<!-- 显示总信息数 -->
-   <h5>{{ messages|length }} Messages</h5>
+<h3>{{ messages|length }} Messages</h3>
+<ul class="movie-list">
       {% for message in messages %}
-      <li>{{ message.nickname }} # {{ message.sn_of_message }}
-        {{ message.message_content }}
+      <li>
+        <strong>{{ message.nickname }}</strong> # {{ message.id }}
+        <span class="float-right">
         {{ message.create_time }}
-       </li>
-       {% endfor %}
+        </span><br>
+        {{ message.message_content }}<br><br>
+      </li>
+      {% endfor %}
 </ul>
 <img alt="Walking Totoro" class="totoro" src="{{ url_for('static',filename='images/totoro.gif') }}" title="to~to~ro">
 {% endblock %}

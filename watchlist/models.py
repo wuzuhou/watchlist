@@ -29,4 +29,4 @@ class Message(db.Model):
     message_content = db.Column(db.String(256))
     nickname = db.Column(db.String(20))
     created_time = db.Column(db.DateTime)
-    sn_of_message = db.Column(db.Integer)
+    sn_of_message = db.Column(db.Integer, auto_increment=True)
