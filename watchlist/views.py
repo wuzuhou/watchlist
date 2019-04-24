@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash, session
 from flask_login import login_user, login_required, current_user, logout_user
 
 from watchlist import app, db
@@ -20,21 +20,25 @@ def index():
             flash('Invalid input.') # 显示错误
             return redirect(url_for('index')) # 重新定向主页
         # 保存表单数据到数据库
-        movie = Movie(title=title, year=year) # 创建记录
+        movie = Movie(title=title, year=year, user_id = session['user_id']) # 创建记录
         db.session.add(movie) # 添加到数据库会话
         db.session.commit() # 提交数据库会话
         flash('Item created.') # 显示成功创建的提示
         return redirect(url_for('index')) # 重定向回主页GET方法
 
-    user = User.query.first()
-    movies = Movie.query.all()
-    return render_template('index.html', user=user, movies=movies)
+    elif not session.get('user_id'):
+        return redirect(url_for('login'))
+
+    else:
+        user = User.query.filter_by(id=session['user_id']).first()
+        movies = Movie.query.filter_by(user_id=session['user_id']).all()
+        return render_template('index.html', user=user, movies=movies)
 
 #编辑电影条目
 @app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
 @login_required
 def edit(movie_id):
-    movie = Movie.query.get_or_404(movie_id)
+    movie = Movie.query.filter_by(user_id = session['user_id']).get_or_404(movie_id)
 
     if request.method == 'POST':
         title = request.form['title']
@@ -56,7 +60,7 @@ def edit(movie_id):
 @app.route('/movie/delete/<int:movie_id>', methods=['POST']) # 限定只接受 POST 请求
 @login_required
 def delete(movie_id):
-    movie = Movie.query.get_or_404(movie_id) #获取电影记录
+    movie = Movie.query.filter_by(user_id = session['user_id']).get_or_404(movie_id) #获取电影记录
     db.session.delete(movie) # 删除对于的记录
     db.session.commit() # 提交数据库会话
     flash('Item deleted.')
@@ -69,11 +73,12 @@ def settings():
     if request.method == 'POST':
         name = request.form['name']
         if not name or len(name) > 20:
+
             flash('Invalid input.')
             return redirect(url_for('settings'))
 
 
-        user = User.query.first()
+        user = User.query.filter_by(id=session['user_id']).first()
         user.name = name
         db.session.commit()
         flash('Settings updated.')
@@ -97,6 +102,7 @@ def login():
         if  user and username == user.username and user.validate_password(password):
             login_user(user) #登入用户
             flash('Login success.')
+            session['user_id'] = user.id
             return redirect(url_for('index'))
 
         flash('Invalid username or password.')

@@ -23,10 +23,10 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60))
     year = db.Column(db.String(4))
+    user_id = db.Column(db.Integer)
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message_content = db.Column(db.String(256))
     nickname = db.Column(db.String(20))
     created_time = db.Column(db.DateTime)
-    sn_of_message = db.Column(db.Integer, auto_increment=True)
